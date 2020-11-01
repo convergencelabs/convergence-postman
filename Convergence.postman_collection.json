@@ -1,0 +1,3242 @@
+{
+	"info": {
+		"_postman_id": "428c61ba-86ee-42de-88c6-f27bb9fd62fc",
+		"name": "Convergence",
+		"description": "HTTP API Calls for the Convergence Collaboration Framework. See https://convergence.io for more information on Convergence.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e5ef857-67f2-4a95-922f-b36f85ede232",
+								"exec": [
+									"var response = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"SessionToken\", response.body.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"admin\", \"password\": \"password\"}"
+						},
+						"url": {
+							"raw": "/auth/login",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Logs the user in using a username and password. The response will include a session token that can be used to authenticate subsequent API calls."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14b9e6af-882e-4efa-81ad-afac70e8c014",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"token\": \"{{SessionToken}}\"}"
+						},
+						"url": {
+							"raw": "/auth/logout",
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Invalidates the current users Session Token."
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14b9e6af-882e-4efa-81ad-afac70e8c014",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"token\": \"{{SessionToken}}\"}"
+						},
+						"url": {
+							"raw": "/auth/validate",
+							"path": [
+								"auth",
+								"validate"
+							]
+						},
+						"description": "Validates that a session token is still valid. The result will contain the authenticated user's username and the time interval in which the session token will expire."
+					},
+					"response": []
+				}
+			],
+			"description": "API calls having to do with authenticating user to the Convergence Server.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2ba8012b-85af-4818-ba85-3e480df9062a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "23e8b321-f5e2-41a9-8431-70c9ee49fe3c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authenticated User",
+			"item": [
+				{
+					"name": "API Keys",
+					"item": [
+						{
+							"name": "Get API Keys",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/apiKeys",
+									"path": [
+										"user",
+										"apiKeys"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create API Key",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"my key\"\n}"
+								},
+								"url": {
+									"raw": "/user/apiKeys",
+									"path": [
+										"user",
+										"apiKeys"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete API Key",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/apiKeys/<key-id>",
+									"path": [
+										"user",
+										"apiKeys",
+										"<key-id>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateApiKey",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"my key2\",\n    \"enabled\": false\n}"
+								},
+								"url": {
+									"raw": "/user/apiKeys/key-id",
+									"path": [
+										"user",
+										"apiKeys",
+										"key-id"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetApiKey",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/apiKeys/<key-id>",
+									"path": [
+										"user",
+										"apiKeys",
+										"<key-id>"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "API Calls dealing with a Convergence Users API Keys. API Keys allow third party systems to make API calls on behalf of the corresponding user.",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5eca9aba-ec4c-4fd7-8624-03c371ff6774",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "83465404-4bb7-450f-9a2a-0e7d16ed546c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Get Profile",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/profile",
+									"path": [
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\":\"Updated\",\n    \"lastName\":\"Last\",\n    \"email\":\"test1@example.com\",\n    \"displayName\":\"Updated Display\"\n}"
+								},
+								"url": {
+									"raw": "/user/profile",
+									"path": [
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Favorite Domains",
+					"item": [
+						{
+							"name": "Get Favorite Domains",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/favoriteDomains",
+									"path": [
+										"user",
+										"favoriteDomains"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Favorite Domain",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/favoriteDomains/convergence/test",
+									"path": [
+										"user",
+										"favoriteDomains",
+										"convergence",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Favorite Domain",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/favoriteDomains/convergence/test",
+									"path": [
+										"user",
+										"favoriteDomains",
+										"convergence",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Set Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"updated\"\n}"
+						},
+						"url": {
+							"raw": "/user/password",
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API Calls that deal with information that relates to the currently authenticated user. These include the users profile, password, favorite domains, API Keys, etc.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "24196083-1f3b-41a2-b00f-6dd32e731520",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7aa0139c-3bad-44ba-aa45-9f872263635a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Config",
+			"item": [
+				{
+					"name": "Get Configs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/config",
+							"path": [
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Configs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sessions.timeout\": 61\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/config",
+							"path": [
+								"config"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Namespaces",
+			"item": [
+				{
+					"name": "Create Namespace",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"new-namespace\",\n    \"displayName\":\"New Namespace\"\n}"
+						},
+						"url": {
+							"raw": "/namespaces",
+							"path": [
+								"namespaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Namespaces",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/namespaces",
+							"path": [
+								"namespaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Namespace",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/namespaces/convergence",
+							"path": [
+								"namespaces",
+								"convergence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Namespace",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/namespaces/Foo",
+							"path": [
+								"namespaces",
+								"Foo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/users",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/users?filter=admin",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/users/test",
+							"path": [
+								"users",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"username\":\"test\",\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"password\":\"password\",\n  \"serverRole\": \"Developer\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "/users",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "/users/test",
+							"path": [
+								"users",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set User Password",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{restAdminUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{restAdminPassword}}",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"password\"\n}"
+						},
+						"url": {
+							"raw": "/users/test/password",
+							"path": [
+								"users",
+								"test",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"serverRole\": \"Developer\"\n}"
+						},
+						"url": {
+							"raw": "/users/test",
+							"path": [
+								"users",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Get User Roles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/roles/server",
+							"path": [
+								"roles",
+								"server"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "927a6395-b3d0-4705-a56a-df1bd3f0f249",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f61cf558-5deb-42cb-8fb2-76b59faa76d8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Schema",
+					"item": [
+						{
+							"name": "Convergence Schema Status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "/schema/convergence",
+									"path": [
+										"schema",
+										"convergence"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Convergence Schema Version Log",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/schema/convergence/versions",
+									"path": [
+										"schema",
+										"convergence",
+										"versions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Convergence Schema Delta Log",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/schema/convergence/deltas",
+									"path": [
+										"schema",
+										"convergence",
+										"deltas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Domain Schema Status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "/schema/domains/convergence/default",
+									"path": [
+										"schema",
+										"domains",
+										"convergence",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Domain Schema Version Log",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "/schema/domains/convergence/default/versions",
+									"path": [
+										"schema",
+										"domains",
+										"convergence",
+										"default",
+										"versions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Domain Schema Delta Log",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/schema/domains/convergence/default/deltas",
+									"path": [
+										"schema",
+										"domains",
+										"convergence",
+										"default",
+										"deltas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upgrade Convergence",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"preRelease\": true\n}"
+								},
+								"url": {
+									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/convergence",
+									"host": [
+										"{{convergenceRestUrl}}"
+									],
+									"path": [
+										"admin",
+										"schema",
+										"upgrade",
+										"convergence"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upgrade Domains",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"preRelease\": true\n}"
+								},
+								"url": {
+									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domains",
+									"host": [
+										"{{convergenceRestUrl}}"
+									],
+									"path": [
+										"admin",
+										"schema",
+										"upgrade",
+										"domains"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upgrade Domain",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"preRelease\": true\n}"
+								},
+								"url": {
+									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domain/test/example",
+									"host": [
+										"{{convergenceRestUrl}}"
+									],
+									"path": [
+										"admin",
+										"schema",
+										"upgrade",
+										"domain",
+										"test",
+										"example"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Data",
+					"item": [
+						{
+							"name": "Convergence Import",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"users\": [\n      {\n        \"username\": \"test\",\n        \"password\": {\n          \"passwordType\": \"hash\",\n          \"value\": \"$s0$e0801$/esXbiSWgCdcKfO04iuZng==$wYqq7wncdANQ0tUkZfPiJ/9xwNmDcmP2hXr3MDLtp5c=\"\n        },\n        \"email\": \"test@example.com\",\n        \"firstName\": \"Test\",\n        \"lastName\": \"User\",\n        \"displayName\": \"Test User\"\n      }\n    ],\n    \"domains\": [\n      {\n        \"id\": \"example\",\n        \"namespace\": \"test\",\n        \"displayName\": \"Example Domain\",\n        \"status\": \"online\",\n        \"statusMessage\": \"\",\n        \"owner\": \"test\",\n        \"dataImport\": {\n          \"config\": {\n            \"anonymousAuth\": true,\n            \"adminJwtKey\": {\n              \"publicKey\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoMhGh4T+88bZTLULNxcz\\n+b2NSWn8lPq9QkQgmYuvnQiUkQbp0sy37eALFAU6+XpE0OV0xwNmpLCF9bPMCZQ+\\nOcczWTUUkRVPUUKZLxw6+Hm+fHSsoApNHiPk/Epf7ijOY9IzGabgJWfAVDmrRz24\\nXkXvhY5JPIbyG8a4/UYPEWTQqRSH58oE68rIej4y+NGqiD3nL2cY96iM9zpJ2tZh\\nclFinZNSfEx5VRsZS3gG9W3RX1oLSz6+tnDiRgjL4w8s2ozCQGdRuqiW2VJnSGPk\\nlpo400g2x8A084yPG1ymoM4fdQdeayan/71gJeaaEOWY+Mp7acyHQGOIXziDxNFK\\nIwIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n              \"privateKey\": \"-----BEGIN RSA PRIVATE KEY-----\\nMIIEowIBAAKCAQEAoMhGh4T+88bZTLULNxcz+b2NSWn8lPq9QkQgmYuvnQiUkQbp\\n0sy37eALFAU6+XpE0OV0xwNmpLCF9bPMCZQ+OcczWTUUkRVPUUKZLxw6+Hm+fHSs\\noApNHiPk/Epf7ijOY9IzGabgJWfAVDmrRz24XkXvhY5JPIbyG8a4/UYPEWTQqRSH\\n58oE68rIej4y+NGqiD3nL2cY96iM9zpJ2tZhclFinZNSfEx5VRsZS3gG9W3RX1oL\\nSz6+tnDiRgjL4w8s2ozCQGdRuqiW2VJnSGPklpo400g2x8A084yPG1ymoM4fdQde\\nayan/71gJeaaEOWY+Mp7acyHQGOIXziDxNFKIwIDAQABAoIBAEHg7e03VFPEhWMF\\nx3uiOTy6KzsKf2D3wDZ3vbfMYX+BdYZbA9HI6hBAvalNX1W7gJjre8bToOoYHjuH\\nmTHPmROJiIOj2TJ9Pcu48xU3hv4qvB84m0bUEbco0/l/7ACknbSO+zsmgi8xbL/W\\nBVUid/nAxBzAKUfwryEscr3sR95C/24Qalwd4TvY5BSxBgq/tlMlDjg+mDCHraKD\\nHH11IrsmBCNdKFF+D0tVps4vEnmbjvEBfNU2MxvnarRs0H62XWRsQXmYEsgcyoXa\\n011r7jRuUfsSIfxqoyP/2KtA+nC58sLhKdRAVDJ20IAXCjIgX/pSXfW3WeRNuUxB\\nH/jAcbkCgYEAy5+v/HQEuQ+d0KkOQeF2KyLD0wzLq8+gYcOsHDTiAUuaAV5tO6xr\\npLlGtn7LXIRVXWFKsqyHe2A9g8wJxyFay+rAX3ji5THkpUmwLEazss9FSySht8A6\\nNTzPVmX4BnH0VqTb5KawchkkIpOS5nRm7SVrVyYbjKXRAHN6+9qz5CUCgYEAyiOL\\nV3FKK1gjF5Ybnn8EKV5VLlR/Qrja1f/szBGSLg9j+qUOz8XHXm3Zwu0btFJIhlRL\\ne/tv8NMEKdgftZYeipvyMjyewtkFghcvg19GUfqdycaY31l3asIVgPru1Yje6xPq\\nLyyczCOty3oY9EPgZZ18VIf52xlogIXt5rJUvqcCgYBbWVthPUc1Ip1hE8aSpawW\\ns/T4BKCGhpHj6h2XVd4iSKFhhdQpVjPAZWIk0wM2kSOezdvuBlqNbeKK8wlb7UnH\\ne5wr+JaJzfVOdZ10b4+EY1op2Ng4ECPM6Gf30a0QbyT3jeQcUu+LcF32qQ/ZFVVr\\nhEMAiNcJJQZ7VlNRE49qhQKBgQCjznwb53XYfDsr4PwOzBWeRJC408axVkYYx6Wo\\nldClPNmjg2DmZPs0fcbLXQRnc4rMOMFW/qJvQUGNe1Pu/nFPmCKELXXmpqH9Ezbw\\nuiOtSW/W1PaLgN/yBsgQVsl3B8zGKcRMaFXEZGFxlEdmox7UmfPoOKz0rblu9Zmd\\nqwRb3wKBgF0sYyvWX6WLNxiOgb1sfUMvg1ycA4HrrArLad3wX5FYkSFDnYFqICOl\\ndcbaAO+zGNW1daWjT9aiErHPhedf20dfNUWnQvJt+9+k6tG+W1R/6XT4s1CicSVx\\nnHhkEbDyxVe//Brt2wS9mLwUZTXZMF9HQUWY2PD1OExgXrUt4rta\\n-----END RSA PRIVATE KEY-----\\n\"\n            }\n          },\n          \"jwtAuthKeys\": [\n            {\n              \"id\": \"test-key\",\n              \"description\": \"A key for testing\",\n              \"updated\": \"2016-11-24T17:13:23.153Z\",\n              \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAonKcZ52DjIFu2AMeb+xu\\njAqV8PQYrfVzr2/nOj5Fm+iwzue6D5z70V5fMs1sAQ8Mb6xcSUUPQ53PVkyi5F9Y\\nD++GIlAvc/z3ObGHUKabpjKRdNhzzjef23wWcACxMHXpSWvDvnn++PD96YpDNr0I\\n3RdtR3muN9D3XPIozxXPi3/HWc3zbM+rjhwN5uFL7AUttrznj9Bt6Jmh/I8KLcem\\nAb6XElpu8wQed33TIb2hMwbPjLCQgFJd/inl1n3FxlwwBnEzAtwy70aw2rRswhqK\\nybzh9bBpsgAQV7Nf1ZoPMttKJ/6S77QQuk0DESGLndCV2nZqEx8QW5T509ZA964j\\nYwIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n              \"enabled\": true\n            }\n          ],\n          \"users\": [\n            {\n              \"userType\": \"normal\",\n              \"username\": \"test\",\n              \"firstName\": \"Test\",\n              \"lastName\": \"User\",\n              \"displayName\": \"Test User\",\n              \"email\": \"test@example.com\",\n              \"password\": {\n                \"passwordType\": \"hash\",\n                \"value\": \"$s0$e0801$T3r6dZNjQD4cWDtH4yeTSw==$KpQEabahN9gQjqcCiwD8eXGBqC3Iah1hkR9ZpdKXWeU=\"\n              }\n            }\n          ],\n          \"collections\": [\n            {\n              \"id\": \"test\",\n              \"name\": \"Test Collection\",\n              \"overrideSnapshotConfig\": false\n            }\n          ],\n          \"models\": [\n            {\n              \"id\": \"test-model\",\n              \"collection\": \"test\",\n              \"version\": 1,\n              \"created\": \"2016-11-24T17:34:30.996Z\",\n              \"modified\": \"2016-11-24T17:35:17.542Z\",\n              \"data\": {\n                \"id\": \"0:0\",\n                \"type\": \"object\",\n                \"children\": {\n                  \"boolean\": {\n                    \"id\": \"test:10\",\n                    \"type\": \"boolean\",\n                    \"value\": false\n                  },\n                  \"number\": {\n                    \"id\": \"0:2\",\n                    \"type\": \"double\",\n                    \"value\": 4\n                  },\n                  \"string\": {\n                    \"id\": \"0:1\",\n                    \"type\": \"string\",\n                    \"value\": \"A string\"\n                  }\n                }\n              },\n              \"operations\": [\n                {\n                  \"version\": 1,\n                  \"timestamp\": \"2016-11-24T17:35:17.542Z\",\n                  \"username\": \"test\",\n                  \"sessionId\": \"1\",\n                  \"op\": {\n                    \"type\": \"ObjectAddProperty\",\n                    \"element\": \"0:0\",\n                    \"noOp\": false,\n                    \"property\": \"boolean\",\n                    \"value\": {\n                      \"id\": \"test:10\",\n                      \"type\": \"boolean\",\n                      \"value\": false\n                    }\n                  }\n                }\n              ],\n              \"snapshots\": [\n                {\n                  \"version\": 1,\n                  \"timestamp\": \"2016-11-24T17:34:30.996Z\",\n                  \"data\": {\n                    \"id\": \"0:0\",\n                    \"type\": \"object\",\n                    \"children\": {\n                      \"number\": {\n                        \"id\": \"0:2\",\n                        \"type\": \"double\",\n                        \"value\": 4\n                      },\n                      \"string\": {\n                        \"id\": \"0:1\",\n                        \"type\": \"string\",\n                        \"value\": \"A string\"\n                      }\n                    }\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{convergenceAdminUrl}}/import/convergence",
+									"host": [
+										"{{convergenceAdminUrl}}"
+									],
+									"path": [
+										"import",
+										"convergence"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Convergence Export (User Test)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"url": {
+									"raw": "{{convergenceAdminUrl}}/export/convergence/test",
+									"host": [
+										"{{convergenceAdminUrl}}"
+									],
+									"path": [
+										"export",
+										"convergence",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Export Domain",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+									}
+								],
+								"url": {
+									"raw": "{{convergenceAdminUrl}}/export/domain/test/example",
+									"host": [
+										"{{convergenceAdminUrl}}"
+									],
+									"path": [
+										"export",
+										"domain",
+										"test",
+										"example"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Util",
+			"item": [
+				{
+					"name": "KeyGen",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/util/keygen",
+							"path": [
+								"util",
+								"keygen"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Domains",
+			"item": [
+				{
+					"name": "Domain",
+					"item": [
+						{
+							"name": "GetDomains",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains",
+									"path": [
+										"domains"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomain",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/convergence/default",
+									"path": [
+										"domains",
+										"convergence",
+										"default"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDomain",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"namespace\":\"convergence\",\n    \"id\":\"postman\",\n    \"displayName\":\"Postman Domain\"\n}"
+								},
+								"url": {
+									"raw": "/domains",
+									"path": [
+										"domains"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteDomain",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/test/postman",
+									"path": [
+										"domains",
+										"test",
+										"postman"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateDomain",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"displayName\": \"Postman Domain (updated)\"\n}"
+								},
+								"url": {
+									"raw": "/domains/test/postman",
+									"path": [
+										"domains",
+										"test",
+										"postman"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Domain Config",
+					"item": [
+						{
+							"name": "SetDomainAnonymousAuth",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"enabled\": true\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/config/anonymousAuth",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"anonymousAuth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainAnonymousAuth",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/config/anonymousAuth",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"anonymousAuth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetModelSnapshotPolicy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains{{domain}}/config/modelSnapshotPolicy",
+									"path": [
+										"domains{{domain}}",
+										"config",
+										"modelSnapshotPolicy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SetModelSnapshotPolicy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"snapshotsEnabled\": true,\n    \"triggerByVersion\": true,\n    \"maximumVersionInterval\": 1002,\n    \"limitByVersion\": true,\n    \"minimumVersionInterval\": 252,\n    \"triggerByTime\": true,\n    \"maximumTimeInterval\": 121,\n    \"limitByTime\": true,\n    \"minimumTimeInterval\": 120\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/config/modelSnapshotPolicy",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"modelSnapshotPolicy"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Convergence User Token",
+					"item": [
+						{
+							"name": "GetDomainAdminToken",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/convergenceUserToken",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"convergenceUserToken"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Members",
+					"item": [
+						{
+							"name": "Get Domain Members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/members",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Domain Roles For User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/members/admin",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"members",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set All Members",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"admin\": \"Owner\"\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/members",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Domain Roles For Member",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"role\": \"Owner\"\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/members/admin",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"members",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Domain Member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/members/admin",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"members",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "JWT Auth Keys",
+					"item": [
+						{
+							"name": "GetDomainKeys",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainKey",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys/postman-key",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys",
+										"postman-key"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDomainKey",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"postman-key\",\n  \"name\": \"Another Key\",\n  \"description\": \"A key created by postman\",\n  \"created\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteDomainKey",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys/postman-key",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys",
+										"postman-key"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateDomainKey",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"created-key\",\n  \"name\": \"This was updated Key\",\n  \"description\": \"A key updated by postman\",\n  \"keyDate\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys/created-key",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys",
+										"created-key"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "30a528eb-822c-43de-a4da-2fcba32e4129",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "95f887ac-8bcd-47f0-955c-a5875dfca446",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Sessions",
+					"item": [
+						{
+							"name": "GetDomainSessions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/sessions",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainConnectedSessions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/sessions?connected=true",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"sessions"
+									],
+									"query": [
+										{
+											"key": "connected",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "65a90e9f-6898-496f-b643-c683b9e26616",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "73947a12-40c5-43a4-a79b-8f30feb1b94b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Collections",
+					"item": [
+						{
+							"name": "CreateCollection",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"myCollection\",\n    \"description\":\"My Collection\",\n    \"overrideSnapshotConfig\":false,\n    \"worldPermissions\": {\n    \t\"read\": true, \"write\": false, \"remove\": false, \"manage\": false, \"create\": false\n    },\n    \"snapshotConfig\": {\n    \t\"snapshotsEnabled\": false,\n        \"triggerByVersion\": false,\n        \"maximumVersionInterval\": 0,\n        \"limitByVersion\": false,\n        \"minimumVersionInterval\": 0,\n        \"triggerByTime\": false,\n        \"maximumTimeInterval\": 0,\n        \"limitByTime\": false,\n        \"minimumTimeInterval\": 0\n    }\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/collections",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainCollections",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/collections",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainCollection",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/collections/myCollection",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections",
+										"myCollection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCollection",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/collections/myCollection",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections",
+										"myCollection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateCollection",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"myCollection2\",\n    \"name\":\"My Collection2\",\n    \"overrideSnapshotConfig\":false\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/collections/myCollection",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections",
+										"myCollection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainCollectionSummaries",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/collectionSummary",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collectionSummary"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1fe9eaab-a697-4945-8ab3-2ca15f1a212e",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d5f033e2-c9ec-46b5-9143-1ffb7001a31d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Models",
+					"item": [
+						{
+							"name": "GetDomainModels",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainModelsInCollection",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainModel",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Model",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": \"test-collection\",\n  \"data\": {\n    \"object\": {\"k1\": \"v1\", \"k2\": null},\n    \"array\": [0, \"1\", false, null],\n    \"string\": \"str\",\n    \"number\": 4,\n    \"boolean\": true,\n    \"null\": null\n  }\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/models",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Model (w/ Id)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": \"test\",\n  \"data\": {\n    \"object\": {\"k1\": \"v1\", \"k2\": null},\n    \"array\": [0, \"1\", false, null],\n    \"string\": \"str\",\n    \"number\": 4,\n    \"boolean\": true,\n    \"null\": null\n  },\n  \"overrideWorld\": true,\n  \"worldPermissions\": { \"read\": true, \"write\": false, \"remove\": false, \"manage\": false },\n  \"userPermissions\": {\n  \t\"test1\": { \"read\": true, \"write\": true, \"remove\": true, \"manage\": false }\n  }\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ModelQuery",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"query\": \"SELECT FROM test\",\n\t\"offset\": -1,\n\t\"limit\": -1\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/model-query",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"model-query"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "767a426b-951e-4c4a-b8b9-d1c6ede8b587",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e307fd4-8c08-479c-9f80-55df081c1fa7",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Model Permissions",
+					"item": [
+						{
+							"name": "GetModelPermissionsSummary",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id/permissions",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetModelWorldPermissions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id/permissions/world",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id",
+										"permissions",
+										"world"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetModelUserPermissions (All)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id/permissions/user",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id",
+										"permissions",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetModelUserPermissions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/models/created-with-id/permissions/user/test1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"models",
+										"created-with-id",
+										"permissions",
+										"user",
+										"test1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Chat",
+					"item": [
+						{
+							"name": "Get Chats",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/chats?offset=0&limit=10",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Chat Events",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/chats/test/events",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats",
+										"test",
+										"events"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Chat",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/chats?offset=0&limit=10",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Chat",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/chats?offset=0&limit=10",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cd3f06a4-ff43-4708-b622-1a9ee0e2de8e",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "98bf0c3a-3e27-4769-8905-2ea2d6ee782d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "GetDomainUsers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/users",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateDomainUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"test\",\n    \"firstName\":\"Test\",\n    \"lastName\":\"User\",\n    \"displayName\":\"Test User\",\n    \"email\":\"test@example.com\",\n    \"password\":\"password\"\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/users",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDomainUser",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/users/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteDomainUser",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/users/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateDomainUser",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"updateUser\",\n    \"firstName\":\"Update\",\n    \"lastName\":\"User\",\n    \"email\":\"update@email.com\"\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/users/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SetDomainUserPassword",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\":\"newPassword\"\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/users/test/password",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users",
+										"test",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DomainUserSearch",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/users?filter=t&limit=8&offset=0",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"users"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "t"
+										},
+										{
+											"key": "limit",
+											"value": "8"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0b0f10e5-4c43-4d48-bb1c-2974aa29c42f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "592889b5-c319-4c9c-b78d-a90f546d48f2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User Groups",
+					"item": [
+						{
+							"name": "CreateGroup",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"group1\",\n    \"description\":\"a group\",\n    \"members\":[]\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserGroups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/groups",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserGroup",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteGroup",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateGroup",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"group1\",\n    \"description\":\"updated\",\n    \"members\": []\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserGroupMembers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1/members",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddUserToGroup",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1/members/test1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1",
+										"members",
+										"test1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveUserFromGroup",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/group1/members/test1",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"group1",
+										"members",
+										"test1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUserGroupSummaries",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/groups?type=summary",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "summary"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e0905dde-57e7-4e68-81e7-1ff0a5a7f4c1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "029cc952-5632-4a43-8456-7b8d5ffdaae0",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Stats",
+					"item": [
+						{
+							"name": "Domain Stats",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/stats",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"stats"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4c0fdb9b-de97-45c1-8877-313fe091b7e4",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "63beff75-79ae-4f2e-b358-99d44a5a8420",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Server Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "SessionToken {{SessionToken}}"
+					}
+				],
+				"url": {
+					"raw": "/",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "SessionToken {{SessionToken}}"
+					}
+				],
+				"url": {
+					"raw": "/health",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "814cbc39-25fe-42ca-8d40-fb088bc0b092",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.url = pm.environment.get('convergenceRestUrl') + pm.request.url"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "27f5b66f-e55e-49a6-beac-262a25746cd0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
