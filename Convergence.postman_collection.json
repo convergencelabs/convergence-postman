@@ -1299,7 +1299,29 @@
 					"name": "Domain Config",
 					"item": [
 						{
-							"name": "SetDomainAnonymousAuth",
+							"name": "Get Anonymous Auth Enabled",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/config/anonymousAuth",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"anonymousAuth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Anonymous Auth Enabled",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -1329,7 +1351,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainAnonymousAuth",
+							"name": "Get Model Snapshot Policy",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1339,31 +1361,10 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/config/anonymousAuth",
+									"raw": "/domains/{{domain}}/config/modelSnapshotPolicy",
 									"path": [
 										"domains",
 										"{{domain}}",
-										"config",
-										"anonymousAuth"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetModelSnapshotPolicy",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains{{domain}}/config/modelSnapshotPolicy",
-									"path": [
-										"domains{{domain}}",
 										"config",
 										"modelSnapshotPolicy"
 									]
@@ -1372,7 +1373,7 @@
 							"response": []
 						},
 						{
-							"name": "SetModelSnapshotPolicy",
+							"name": "Set Model Snapshot Policy",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -1396,6 +1397,112 @@
 										"{{domain}}",
 										"config",
 										"modelSnapshotPolicy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Collection Config",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/config/collection",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"collection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Collection Config",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"autoCreate\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/config/collection",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"collection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Reconnect Config",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/config/reconnect",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"reconnect"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Reconnect Config",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tokenValidity\": 1440\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/config/reconnect",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"config",
+										"reconnect"
 									]
 								}
 							},
@@ -1566,7 +1673,7 @@
 					"name": "JWT Auth Keys",
 					"item": [
 						{
-							"name": "GetDomainKeys",
+							"name": "Get JWT Auth Keys",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1587,7 +1694,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainKey",
+							"name": "Get JWT Auth Key",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1597,19 +1704,19 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/jwtKeys/postman-key",
+									"raw": "/domains/{{domain}}/jwtKeys/test-key",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"jwtKeys",
-										"postman-key"
+										"test-key"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "CreateDomainKey",
+							"name": "Create JWT Auth Key",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -1624,7 +1731,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\": \"postman-key\",\n  \"name\": \"Another Key\",\n  \"description\": \"A key created by postman\",\n  \"created\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
+									"raw": "{\n  \"id\": \"test-key\",\n  \"name\": \"Another Key\",\n  \"description\": \"A key created by postman\",\n  \"created\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
 								},
 								"url": {
 									"raw": "/domains/{{domain}}/jwtKeys",
@@ -1632,32 +1739,6 @@
 										"domains",
 										"{{domain}}",
 										"jwtKeys"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteDomainKey",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/jwtKeys/postman-key",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"jwtKeys",
-										"postman-key"
 									]
 								}
 							},
@@ -1679,15 +1760,41 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\": \"created-key\",\n  \"name\": \"This was updated Key\",\n  \"description\": \"A key updated by postman\",\n  \"keyDate\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
+									"raw": "{\n  \"id\": \"test-key\",\n  \"name\": \"This was updated Key\",\n  \"description\": \"A key updated by postman\",\n  \"keyDate\": \"2015-09-21T12:32:43.000Z\",\n  \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqHvXYPseLVx2vCSCipw\\nxOumeB2t3JFxXnQ1qC9QMcAydKT7oeTZEbJxgbpaeEy2QkH7J8drkfu78RBh9nFb\\nJ3yh3/cZS09wMM4NQsmqqpee4qHromwR1N4MgYAzDGcnl0iHeaYc56tHt5n5ENjG\\n+bjEULEGIFVbDs2MBxyswchyqRFGHse41uLxhybhDNkEQLUcqkbVesqVXGsz25Hi\\nBdxfYRJ9+2x70GwxDf0nBfZb1fvUFZnCDJHKO/wqv5k9BcuCDLUOdRgJa7+E721V\\nSvopddtRgEFnEWoOilcUWtF03CUy4tw3hv1VDcbXKsEma0KjP5IAvWFVI6dbDHeh\\nLQIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n  \"enabled\": true\n}"
 								},
 								"url": {
-									"raw": "/domains/{{domain}}/jwtKeys/created-key",
+									"raw": "/domains/{{domain}}/jwtKeys/test-key",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"jwtKeys",
-										"created-key"
+										"test-key"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteDomainKey",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/jwtKeys/test-key",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"jwtKeys",
+										"test-key"
 									]
 								}
 							},
@@ -1719,7 +1826,7 @@
 					"name": "Sessions",
 					"item": [
 						{
-							"name": "GetDomainSessions",
+							"name": "Get Sessions",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1740,7 +1847,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainConnectedSessions",
+							"name": "Get Connected Sessions",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1792,36 +1899,7 @@
 					"name": "Collections",
 					"item": [
 						{
-							"name": "CreateCollection",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"id\":\"myCollection\",\n    \"description\":\"My Collection\",\n    \"overrideSnapshotConfig\":false,\n    \"worldPermissions\": {\n    \t\"read\": true, \"write\": false, \"remove\": false, \"manage\": false, \"create\": false\n    },\n    \"snapshotConfig\": {\n    \t\"snapshotsEnabled\": false,\n        \"triggerByVersion\": false,\n        \"maximumVersionInterval\": 0,\n        \"limitByVersion\": false,\n        \"minimumVersionInterval\": 0,\n        \"triggerByTime\": false,\n        \"maximumTimeInterval\": 0,\n        \"limitByTime\": false,\n        \"minimumTimeInterval\": 0\n    }\n}"
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/collections",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"collections"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetDomainCollections",
+							"name": "Get Collections",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1859,7 +1937,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainCollection",
+							"name": "Get Collection",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1869,19 +1947,48 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/collections/myCollection",
+									"raw": "/domains/{{domain}}/collections/test",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"collections",
-										"myCollection"
+										"test"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "DeleteCollection",
+							"name": "Create Collection",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"test\",\n    \"description\":\"Test Collection\",\n    \"worldPermissions\": {\n    \t\"read\": true, \"write\": false, \"remove\": false, \"manage\": false, \"create\": false\n    },\n    \"userPermissions\": {},\n    \"groupPermissions\": {},\n    \"overrideSnapshotPolicy\":false,\n    \"snapshotPolicy\": {\n    \t\"snapshotsEnabled\": false,\n        \"triggerByVersion\": false,\n        \"maximumVersionInterval\": 0,\n        \"limitByVersion\": false,\n        \"minimumVersionInterval\": 0,\n        \"triggerByTime\": false,\n        \"maximumTimeInterval\": 0,\n        \"limitByTime\": false,\n        \"minimumTimeInterval\": 0\n    }\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/collections",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"collections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Collection",
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -1895,19 +2002,19 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "/domains/{{domain}}/collections/myCollection",
+									"raw": "/domains/{{domain}}/collections/test",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"collections",
-										"myCollection"
+										"test"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "UpdateCollection",
+							"name": "Update Collection",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -1922,22 +2029,22 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\":\"myCollection2\",\n    \"name\":\"My Collection2\",\n    \"overrideSnapshotConfig\":false\n}"
+									"raw": "{\n    \"id\":\"test-updated\",\n    \"name\":\"test updated\",\n    \"overrideSnapshotPolicy\":false\n}"
 								},
 								"url": {
-									"raw": "/domains/{{domain}}/collections/myCollection",
+									"raw": "/domains/{{domain}}/collections/test",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"collections",
-										"myCollection"
+										"test"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "GetDomainCollectionSummaries",
+							"name": "Get Collection Summaries",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1983,7 +2090,7 @@
 					"name": "Models",
 					"item": [
 						{
-							"name": "GetDomainModels",
+							"name": "Get Models",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2004,7 +2111,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainModelsInCollection",
+							"name": "Get Model",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2026,28 +2133,6 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainModel",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"models",
-										"created-with-id"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Create Model",
 							"request": {
 								"method": "POST",
@@ -2063,7 +2148,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"collection\": \"test-collection\",\n  \"data\": {\n    \"object\": {\"k1\": \"v1\", \"k2\": null},\n    \"array\": [0, \"1\", false, null],\n    \"string\": \"str\",\n    \"number\": 4,\n    \"boolean\": true,\n    \"null\": null\n  }\n}"
+									"raw": "{\n  \"collection\": \"test\",\n  \"data\": {\n    \"object\": {\"k1\": \"v1\", \"k2\": null},\n    \"array\": [0, \"1\", false, null],\n    \"string\": \"str\",\n    \"number\": 4,\n    \"boolean\": true,\n    \"null\": null\n  }\n}"
 								},
 								"url": {
 									"raw": "/domains/{{domain}}/models",
@@ -2095,12 +2180,12 @@
 									"raw": "{\n  \"collection\": \"test\",\n  \"data\": {\n    \"object\": {\"k1\": \"v1\", \"k2\": null},\n    \"array\": [0, \"1\", false, null],\n    \"string\": \"str\",\n    \"number\": 4,\n    \"boolean\": true,\n    \"null\": null\n  },\n  \"overrideWorld\": true,\n  \"worldPermissions\": { \"read\": true, \"write\": false, \"remove\": false, \"manage\": false },\n  \"userPermissions\": {\n  \t\"test1\": { \"read\": true, \"write\": true, \"remove\": true, \"manage\": false }\n  }\n}"
 								},
 								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id",
+									"raw": "/domains/{{domain}}/models/test",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"models",
-										"created-with-id"
+										"test"
 									]
 								}
 							},
@@ -2153,7 +2238,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"query\": \"SELECT FROM test\",\n\t\"offset\": -1,\n\t\"limit\": -1\n}"
+									"raw": "{\n\t\"query\": \"SELECT FROM test\",\n\t\"offset\": 0,\n\t\"limit\": 10\n}"
 								},
 								"url": {
 									"raw": "/domains/{{domain}}/model-query",
@@ -2192,7 +2277,7 @@
 					"name": "Model Permissions",
 					"item": [
 						{
-							"name": "GetModelPermissionsSummary",
+							"name": "Get Model Permissions Summary",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2202,12 +2287,12 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id/permissions",
+									"raw": "/domains/{{domain}}/models/test/permissions",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"models",
-										"created-with-id",
+										"test",
 										"permissions"
 									]
 								}
@@ -2215,7 +2300,7 @@
 							"response": []
 						},
 						{
-							"name": "GetModelWorldPermissions",
+							"name": "Get Model World Permissions",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2225,12 +2310,12 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id/permissions/world",
+									"raw": "/domains/{{domain}}/models/test/permissions/world",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"models",
-										"created-with-id",
+										"test",
 										"permissions",
 										"world"
 									]
@@ -2239,7 +2324,7 @@
 							"response": []
 						},
 						{
-							"name": "GetModelUserPermissions (All)",
+							"name": "Get All Model User Permissions",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2249,12 +2334,12 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id/permissions/user",
+									"raw": "/domains/{{domain}}/models/test/permissions/user",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"models",
-										"created-with-id",
+										"test",
 										"permissions",
 										"user"
 									]
@@ -2263,7 +2348,7 @@
 							"response": []
 						},
 						{
-							"name": "GetModelUserPermissions",
+							"name": "Get Model Permissions for User",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2273,7 +2358,7 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/models/created-with-id/permissions/user/test1",
+									"raw": "/domains/{{domain}}/models/created-with-id/permissions/user/test",
 									"path": [
 										"domains",
 										"{{domain}}",
@@ -2281,7 +2366,7 @@
 										"created-with-id",
 										"permissions",
 										"user",
-										"test1"
+										"test"
 									]
 								}
 							},
@@ -2293,83 +2378,37 @@
 					"name": "Chat",
 					"item": [
 						{
-							"name": "Get Chats",
+							"name": "Create Chat",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Authorization",
 										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"chatId\": \"test-channel\",\n  \"chatType\": \"channel\",\n  \"membership\": \"public\",\n  \"name\": \"Test Channel\",\n  \"topic\": \"for testing\",\n  \"members\": []\n}"
+								},
 								"url": {
-									"raw": "/domains/{{domain}}/chats?offset=0&limit=10",
+									"raw": "/domains/{{domain}}/chats",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"chats"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "test",
-											"disabled": true
-										},
-										{
-											"key": "limit",
-											"value": "1",
-											"disabled": true
-										},
-										{
-											"key": "offset",
-											"value": "0"
-										},
-										{
-											"key": "limit",
-											"value": "10"
-										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Chat Events",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains/{{domain}}/chats/test/events",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"chats",
-										"test",
-										"events"
-									],
-									"query": [
-										{
-											"key": "filter",
-											"value": "test",
-											"disabled": true
-										},
-										{
-											"key": "limit",
-											"value": "1",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Chat",
+							"name": "Get Chats",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2420,11 +2459,12 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/chats?offset=0&limit=10",
+									"raw": "/domains/{{domain}}/chats/test-channel",
 									"path": [
 										"domains",
 										"{{domain}}",
-										"chats"
+										"chats",
+										"test-channel"
 									],
 									"query": [
 										{
@@ -2436,15 +2476,72 @@
 											"key": "limit",
 											"value": "1",
 											"disabled": true
-										},
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Chat Events",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/chats/test-channel/events",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats",
+										"test-channel",
+										"events"
+									],
+									"query": [
 										{
-											"key": "offset",
-											"value": "0"
+											"key": "filter",
+											"value": "test",
+											"disabled": true
 										},
 										{
 											"key": "limit",
-											"value": "10"
+											"value": "1",
+											"disabled": true
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Chat",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/chats/test-channel",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"chats",
+										"test-channel"
 									]
 								}
 							},
@@ -2476,7 +2573,7 @@
 					"name": "Users",
 					"item": [
 						{
-							"name": "GetDomainUsers",
+							"name": "Get Users",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2497,7 +2594,7 @@
 							"response": []
 						},
 						{
-							"name": "CreateDomainUser",
+							"name": "Create User",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -2526,7 +2623,7 @@
 							"response": []
 						},
 						{
-							"name": "GetDomainUser",
+							"name": "Get User",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2548,7 +2645,7 @@
 							"response": []
 						},
 						{
-							"name": "DeleteDomainUser",
+							"name": "Delete User",
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -2574,7 +2671,7 @@
 							"response": []
 						},
 						{
-							"name": "UpdateDomainUser",
+							"name": "Update User",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -2604,7 +2701,7 @@
 							"response": []
 						},
 						{
-							"name": "SetDomainUserPassword",
+							"name": "Set User Password",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -2635,7 +2732,7 @@
 							"response": []
 						},
 						{
-							"name": "DomainUserSearch",
+							"name": "Search Users",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2899,7 +2996,7 @@
 					"name": "User Groups",
 					"item": [
 						{
-							"name": "CreateGroup",
+							"name": "Create Group",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -2914,7 +3011,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"id\":\"group1\",\n    \"description\":\"a group\",\n    \"members\":[]\n}"
+									"raw": "{\n    \"id\":\"test\",\n    \"description\":\"a test group\",\n    \"members\":[]\n}"
 								},
 								"url": {
 									"raw": "/domains/{{domain}}/groups",
@@ -2928,7 +3025,7 @@
 							"response": []
 						},
 						{
-							"name": "GetUserGroups",
+							"name": "Get Groups",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2949,7 +3046,7 @@
 							"response": []
 						},
 						{
-							"name": "GetUserGroup",
+							"name": "Get Group",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -2959,154 +3056,19 @@
 									}
 								],
 								"url": {
-									"raw": "/domains/{{domain}}/groups/group1",
+									"raw": "/domains/{{domain}}/groups/test",
 									"path": [
 										"domains",
 										"{{domain}}",
 										"groups",
-										"group1"
+										"test"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "DeleteGroup",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/groups/group1",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"groups",
-										"group1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateGroup",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"id\":\"group1\",\n    \"description\":\"updated\",\n    \"members\": []\n}"
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/groups/group1",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"groups",
-										"group1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUserGroupMembers",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains/{{domain}}/groups/group1/members",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"groups",
-										"group1",
-										"members"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "AddUserToGroup",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/groups/group1/members/test1",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"groups",
-										"group1",
-										"members",
-										"test1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "RemoveUserFromGroup",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "/domains/{{domain}}/groups/group1/members/test1",
-									"path": [
-										"domains",
-										"{{domain}}",
-										"groups",
-										"group1",
-										"members",
-										"test1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUserGroupSummaries",
+							"name": "Get Group Summaries",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -3127,6 +3089,141 @@
 											"key": "type",
 											"value": "summary"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Group",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"test\",\n    \"description\":\"updated\",\n    \"members\": []\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group Members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/groups/test/members",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"test",
+										"members"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add User To Group",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/test/members/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"test",
+										"members",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove User From Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/groups/test/members/test",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"groups",
+										"test",
+										"members",
+										"test"
 									]
 								}
 							},
