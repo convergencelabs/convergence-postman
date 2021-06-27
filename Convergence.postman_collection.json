@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "428c61ba-86ee-42de-88c6-f27bb9fd62fc",
+		"_postman_id": "487cd1fc-43f2-469f-8b97-5037e5c88184",
 		"name": "Convergence",
 		"description": "HTTP API Calls for the Convergence Collaboration Framework. See https://convergence.io for more information on Convergence.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7e5ef857-67f2-4a95-922f-b36f85ede232",
 								"exec": [
 									"var response = JSON.parse(responseBody);",
 									"postman.setGlobalVariable(\"SessionToken\", response.body.token);"
@@ -53,7 +52,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14b9e6af-882e-4efa-81ad-afac70e8c014",
 								"exec": [
 									""
 								],
@@ -90,7 +88,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14b9e6af-882e-4efa-81ad-afac70e8c014",
 								"exec": [
 									""
 								],
@@ -127,7 +124,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "2ba8012b-85af-4818-ba85-3e480df9062a",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -137,15 +133,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "23e8b321-f5e2-41a9-8431-70c9ee49fe3c",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Authenticated User",
@@ -174,6 +168,27 @@
 							"response": []
 						},
 						{
+							"name": "Get API Key",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/user/apiKeys/sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ",
+									"path": [
+										"user",
+										"apiKeys",
+										"sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create API Key",
 							"request": {
 								"method": "POST",
@@ -189,7 +204,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\":\"my key\"\n}"
+									"raw": "{\n    \"name\":\"test-key\",\n    \"enabled\": true\n}"
 								},
 								"url": {
 									"raw": "/user/apiKeys",
@@ -212,18 +227,18 @@
 									}
 								],
 								"url": {
-									"raw": "/user/apiKeys/<key-id>",
+									"raw": "/user/apiKeys/sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ",
 									"path": [
 										"user",
 										"apiKeys",
-										"<key-id>"
+										"sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "UpdateApiKey",
+							"name": "Update API Key",
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -238,35 +253,14 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\":\"my key2\",\n    \"enabled\": false\n}"
+									"raw": "{\n    \"name\":\"test-key-updted\",\n    \"enabled\": false\n}"
 								},
 								"url": {
-									"raw": "/user/apiKeys/key-id",
+									"raw": "/user/apiKeys/sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ",
 									"path": [
 										"user",
 										"apiKeys",
-										"key-id"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetApiKey",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/user/apiKeys/<key-id>",
-									"path": [
-										"user",
-										"apiKeys",
-										"<key-id>"
+										"sZXPHCrIKgB9SD3ejCad9hIMETB4zJGzpSHqZthLD63hKOFlQIZPSMOQ1hQR1EcZ"
 									]
 								}
 							},
@@ -278,7 +272,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5eca9aba-ec4c-4fd7-8624-03c371ff6774",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -288,16 +281,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "83465404-4bb7-450f-9a2a-0e7d16ed546c",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Profile",
@@ -350,9 +340,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Favorite Domains",
@@ -396,12 +384,11 @@
 									}
 								],
 								"url": {
-									"raw": "/user/favoriteDomains/convergence/test",
+									"raw": "/user/favoriteDomains/{{domain}}",
 									"path": [
 										"user",
 										"favoriteDomains",
-										"convergence",
-										"test"
+										"{{domain}}"
 									]
 								}
 							},
@@ -422,20 +409,17 @@
 									}
 								],
 								"url": {
-									"raw": "/user/favoriteDomains/convergence/test",
+									"raw": "/user/favoriteDomains/{{domain}}",
 									"path": [
 										"user",
 										"favoriteDomains",
-										"convergence",
-										"test"
+										"{{domain}}"
 									]
 								}
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Set Password",
@@ -471,7 +455,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "24196083-1f3b-41a2-b00f-6dd32e731520",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -481,15 +464,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7aa0139c-3bad-44ba-aa45-9f872263635a",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Config",
@@ -541,8 +522,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Namespaces",
@@ -633,8 +613,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Users",
@@ -657,6 +636,30 @@
 							"raw": "/users",
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/users/admin",
+							"path": [
+								"users",
+								"admin"
 							]
 						}
 					},
@@ -688,30 +691,6 @@
 					"response": []
 				},
 				{
-					"name": "Get User",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "SessionToken {{SessionToken}}"
-							}
-						],
-						"url": {
-							"raw": "/users/test",
-							"path": [
-								"users",
-								"test"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Create User",
 					"request": {
 						"method": "POST",
@@ -727,10 +706,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \n  \"username\":\"test\",\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"password\":\"password\",\n  \"serverRole\": \"Developer\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n  \n  \"username\":\"test\",\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"password\":\"password\",\n  \"serverRole\": \"Developer\"\n}"
 						},
 						"url": {
 							"raw": "/users",
@@ -758,6 +734,34 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"url": {
+							"raw": "/users/test",
+							"path": [
+								"users",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"serverRole\": \"Developer\"\n}"
 						},
 						"url": {
 							"raw": "/users/test",
@@ -823,37 +827,8 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Update User",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "SessionToken {{SessionToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"firstName\":\"Test\",\n  \"lastName\":\"User\",\n  \"displayName\": \"Test User\",\n  \"email\":\"test@example.com\",\n  \"serverRole\": \"Developer\"\n}"
-						},
-						"url": {
-							"raw": "/users/test",
-							"path": [
-								"users",
-								"test"
-							]
-						}
-					},
-					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Roles",
@@ -883,7 +858,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "927a6395-b3d0-4705-a56a-df1bd3f0f249",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -893,384 +867,405 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f61cf558-5deb-42cb-8fb2-76b59faa76d8",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
-			"name": "Admin",
+			"name": "Domains",
 			"item": [
 				{
-					"name": "Schema",
-					"item": [
-						{
-							"name": "Convergence Schema Status",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "/schema/convergence",
-									"path": [
-										"schema",
-										"convergence"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Convergence Schema Version Log",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/schema/convergence/versions",
-									"path": [
-										"schema",
-										"convergence",
-										"versions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Convergence Schema Delta Log",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/schema/convergence/deltas",
-									"path": [
-										"schema",
-										"convergence",
-										"deltas"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Domain Schema Status",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "/schema/domains/convergence/default",
-									"path": [
-										"schema",
-										"domains",
-										"convergence",
-										"default"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Domain Schema Version Log",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "/schema/domains/convergence/default/versions",
-									"path": [
-										"schema",
-										"domains",
-										"convergence",
-										"default",
-										"versions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Domain Schema Delta Log",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/schema/domains/convergence/default/deltas",
-									"path": [
-										"schema",
-										"domains",
-										"convergence",
-										"default",
-										"deltas"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Upgrade Convergence",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"preRelease\": true\n}"
-								},
-								"url": {
-									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/convergence",
-									"host": [
-										"{{convergenceRestUrl}}"
-									],
-									"path": [
-										"admin",
-										"schema",
-										"upgrade",
-										"convergence"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Upgrade Domains",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"preRelease\": true\n}"
-								},
-								"url": {
-									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domains",
-									"host": [
-										"{{convergenceRestUrl}}"
-									],
-									"path": [
-										"admin",
-										"schema",
-										"upgrade",
-										"domains"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Upgrade Domain",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"preRelease\": true\n}"
-								},
-								"url": {
-									"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domain/test/example",
-									"host": [
-										"{{convergenceRestUrl}}"
-									],
-									"path": [
-										"admin",
-										"schema",
-										"upgrade",
-										"domain",
-										"test",
-										"example"
-									]
-								}
-							},
-							"response": []
+					"name": "Get Domains",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/domains",
+							"path": [
+								"domains"
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					},
+					"response": []
 				},
 				{
-					"name": "Data",
-					"item": [
-						{
-							"name": "Convergence Import",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"users\": [\n      {\n        \"username\": \"test\",\n        \"password\": {\n          \"passwordType\": \"hash\",\n          \"value\": \"$s0$e0801$/esXbiSWgCdcKfO04iuZng==$wYqq7wncdANQ0tUkZfPiJ/9xwNmDcmP2hXr3MDLtp5c=\"\n        },\n        \"email\": \"test@example.com\",\n        \"firstName\": \"Test\",\n        \"lastName\": \"User\",\n        \"displayName\": \"Test User\"\n      }\n    ],\n    \"domains\": [\n      {\n        \"id\": \"example\",\n        \"namespace\": \"test\",\n        \"displayName\": \"Example Domain\",\n        \"status\": \"online\",\n        \"statusMessage\": \"\",\n        \"owner\": \"test\",\n        \"dataImport\": {\n          \"config\": {\n            \"anonymousAuth\": true,\n            \"adminJwtKey\": {\n              \"publicKey\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoMhGh4T+88bZTLULNxcz\\n+b2NSWn8lPq9QkQgmYuvnQiUkQbp0sy37eALFAU6+XpE0OV0xwNmpLCF9bPMCZQ+\\nOcczWTUUkRVPUUKZLxw6+Hm+fHSsoApNHiPk/Epf7ijOY9IzGabgJWfAVDmrRz24\\nXkXvhY5JPIbyG8a4/UYPEWTQqRSH58oE68rIej4y+NGqiD3nL2cY96iM9zpJ2tZh\\nclFinZNSfEx5VRsZS3gG9W3RX1oLSz6+tnDiRgjL4w8s2ozCQGdRuqiW2VJnSGPk\\nlpo400g2x8A084yPG1ymoM4fdQdeayan/71gJeaaEOWY+Mp7acyHQGOIXziDxNFK\\nIwIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n              \"privateKey\": \"-----BEGIN RSA PRIVATE KEY-----\\nMIIEowIBAAKCAQEAoMhGh4T+88bZTLULNxcz+b2NSWn8lPq9QkQgmYuvnQiUkQbp\\n0sy37eALFAU6+XpE0OV0xwNmpLCF9bPMCZQ+OcczWTUUkRVPUUKZLxw6+Hm+fHSs\\noApNHiPk/Epf7ijOY9IzGabgJWfAVDmrRz24XkXvhY5JPIbyG8a4/UYPEWTQqRSH\\n58oE68rIej4y+NGqiD3nL2cY96iM9zpJ2tZhclFinZNSfEx5VRsZS3gG9W3RX1oL\\nSz6+tnDiRgjL4w8s2ozCQGdRuqiW2VJnSGPklpo400g2x8A084yPG1ymoM4fdQde\\nayan/71gJeaaEOWY+Mp7acyHQGOIXziDxNFKIwIDAQABAoIBAEHg7e03VFPEhWMF\\nx3uiOTy6KzsKf2D3wDZ3vbfMYX+BdYZbA9HI6hBAvalNX1W7gJjre8bToOoYHjuH\\nmTHPmROJiIOj2TJ9Pcu48xU3hv4qvB84m0bUEbco0/l/7ACknbSO+zsmgi8xbL/W\\nBVUid/nAxBzAKUfwryEscr3sR95C/24Qalwd4TvY5BSxBgq/tlMlDjg+mDCHraKD\\nHH11IrsmBCNdKFF+D0tVps4vEnmbjvEBfNU2MxvnarRs0H62XWRsQXmYEsgcyoXa\\n011r7jRuUfsSIfxqoyP/2KtA+nC58sLhKdRAVDJ20IAXCjIgX/pSXfW3WeRNuUxB\\nH/jAcbkCgYEAy5+v/HQEuQ+d0KkOQeF2KyLD0wzLq8+gYcOsHDTiAUuaAV5tO6xr\\npLlGtn7LXIRVXWFKsqyHe2A9g8wJxyFay+rAX3ji5THkpUmwLEazss9FSySht8A6\\nNTzPVmX4BnH0VqTb5KawchkkIpOS5nRm7SVrVyYbjKXRAHN6+9qz5CUCgYEAyiOL\\nV3FKK1gjF5Ybnn8EKV5VLlR/Qrja1f/szBGSLg9j+qUOz8XHXm3Zwu0btFJIhlRL\\ne/tv8NMEKdgftZYeipvyMjyewtkFghcvg19GUfqdycaY31l3asIVgPru1Yje6xPq\\nLyyczCOty3oY9EPgZZ18VIf52xlogIXt5rJUvqcCgYBbWVthPUc1Ip1hE8aSpawW\\ns/T4BKCGhpHj6h2XVd4iSKFhhdQpVjPAZWIk0wM2kSOezdvuBlqNbeKK8wlb7UnH\\ne5wr+JaJzfVOdZ10b4+EY1op2Ng4ECPM6Gf30a0QbyT3jeQcUu+LcF32qQ/ZFVVr\\nhEMAiNcJJQZ7VlNRE49qhQKBgQCjznwb53XYfDsr4PwOzBWeRJC408axVkYYx6Wo\\nldClPNmjg2DmZPs0fcbLXQRnc4rMOMFW/qJvQUGNe1Pu/nFPmCKELXXmpqH9Ezbw\\nuiOtSW/W1PaLgN/yBsgQVsl3B8zGKcRMaFXEZGFxlEdmox7UmfPoOKz0rblu9Zmd\\nqwRb3wKBgF0sYyvWX6WLNxiOgb1sfUMvg1ycA4HrrArLad3wX5FYkSFDnYFqICOl\\ndcbaAO+zGNW1daWjT9aiErHPhedf20dfNUWnQvJt+9+k6tG+W1R/6XT4s1CicSVx\\nnHhkEbDyxVe//Brt2wS9mLwUZTXZMF9HQUWY2PD1OExgXrUt4rta\\n-----END RSA PRIVATE KEY-----\\n\"\n            }\n          },\n          \"jwtAuthKeys\": [\n            {\n              \"id\": \"test-key\",\n              \"description\": \"A key for testing\",\n              \"updated\": \"2016-11-24T17:13:23.153Z\",\n              \"key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAonKcZ52DjIFu2AMeb+xu\\njAqV8PQYrfVzr2/nOj5Fm+iwzue6D5z70V5fMs1sAQ8Mb6xcSUUPQ53PVkyi5F9Y\\nD++GIlAvc/z3ObGHUKabpjKRdNhzzjef23wWcACxMHXpSWvDvnn++PD96YpDNr0I\\n3RdtR3muN9D3XPIozxXPi3/HWc3zbM+rjhwN5uFL7AUttrznj9Bt6Jmh/I8KLcem\\nAb6XElpu8wQed33TIb2hMwbPjLCQgFJd/inl1n3FxlwwBnEzAtwy70aw2rRswhqK\\nybzh9bBpsgAQV7Nf1ZoPMttKJ/6S77QQuk0DESGLndCV2nZqEx8QW5T509ZA964j\\nYwIDAQAB\\n-----END PUBLIC KEY-----\\n\",\n              \"enabled\": true\n            }\n          ],\n          \"users\": [\n            {\n              \"userType\": \"normal\",\n              \"username\": \"test\",\n              \"firstName\": \"Test\",\n              \"lastName\": \"User\",\n              \"displayName\": \"Test User\",\n              \"email\": \"test@example.com\",\n              \"password\": {\n                \"passwordType\": \"hash\",\n                \"value\": \"$s0$e0801$T3r6dZNjQD4cWDtH4yeTSw==$KpQEabahN9gQjqcCiwD8eXGBqC3Iah1hkR9ZpdKXWeU=\"\n              }\n            }\n          ],\n          \"collections\": [\n            {\n              \"id\": \"test\",\n              \"name\": \"Test Collection\",\n              \"overrideSnapshotConfig\": false\n            }\n          ],\n          \"models\": [\n            {\n              \"id\": \"test-model\",\n              \"collection\": \"test\",\n              \"version\": 1,\n              \"created\": \"2016-11-24T17:34:30.996Z\",\n              \"modified\": \"2016-11-24T17:35:17.542Z\",\n              \"data\": {\n                \"id\": \"0:0\",\n                \"type\": \"object\",\n                \"children\": {\n                  \"boolean\": {\n                    \"id\": \"test:10\",\n                    \"type\": \"boolean\",\n                    \"value\": false\n                  },\n                  \"number\": {\n                    \"id\": \"0:2\",\n                    \"type\": \"double\",\n                    \"value\": 4\n                  },\n                  \"string\": {\n                    \"id\": \"0:1\",\n                    \"type\": \"string\",\n                    \"value\": \"A string\"\n                  }\n                }\n              },\n              \"operations\": [\n                {\n                  \"version\": 1,\n                  \"timestamp\": \"2016-11-24T17:35:17.542Z\",\n                  \"username\": \"test\",\n                  \"sessionId\": \"1\",\n                  \"op\": {\n                    \"type\": \"ObjectAddProperty\",\n                    \"element\": \"0:0\",\n                    \"noOp\": false,\n                    \"property\": \"boolean\",\n                    \"value\": {\n                      \"id\": \"test:10\",\n                      \"type\": \"boolean\",\n                      \"value\": false\n                    }\n                  }\n                }\n              ],\n              \"snapshots\": [\n                {\n                  \"version\": 1,\n                  \"timestamp\": \"2016-11-24T17:34:30.996Z\",\n                  \"data\": {\n                    \"id\": \"0:0\",\n                    \"type\": \"object\",\n                    \"children\": {\n                      \"number\": {\n                        \"id\": \"0:2\",\n                        \"type\": \"double\",\n                        \"value\": 4\n                      },\n                      \"string\": {\n                        \"id\": \"0:1\",\n                        \"type\": \"string\",\n                        \"value\": \"A string\"\n                      }\n                    }\n                  }\n                }\n              ]\n            }\n          ]\n        }\n      }\n    ]\n}"
-								},
-								"url": {
-									"raw": "{{convergenceAdminUrl}}/import/convergence",
-									"host": [
-										"{{convergenceAdminUrl}}"
-									],
-									"path": [
-										"import",
-										"convergence"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Convergence Export (User Test)",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"url": {
-									"raw": "{{convergenceAdminUrl}}/export/convergence/test",
-									"host": [
-										"{{convergenceAdminUrl}}"
-									],
-									"path": [
-										"export",
-										"convergence",
-										"test"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Export Domain",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "MasterAdminApiKey {{masterAdminApiKey}}"
-									}
-								],
-								"url": {
-									"raw": "{{convergenceAdminUrl}}/export/domain/test/example",
-									"host": [
-										"{{convergenceAdminUrl}}"
-									],
-									"path": [
-										"export",
-										"domain",
-										"test",
-										"example"
-									]
-								}
-							},
-							"response": []
+					"name": "Get Domain",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/domains/{{domain}}",
+							"path": [
+								"domains",
+								"{{domain}}"
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					},
+					"response": []
+				},
+				{
+					"name": "Create Domain",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"namespace\":\"convergence\",\n    \"id\":\"postman\",\n    \"displayName\":\"Postman Domain\"\n}"
+						},
+						"url": {
+							"raw": "/domains",
+							"path": [
+								"domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Domain",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "/domains/test/postman",
+							"path": [
+								"domains",
+								"test",
+								"postman"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Domain",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"Postman Domain (updated)\"\n}"
+						},
+						"url": {
+							"raw": "/domains/test/postman",
+							"path": [
+								"domains",
+								"test",
+								"postman"
+							]
+						}
+					},
+					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
+		},
+		{
+			"name": "Schema",
+			"item": [
+				{
+					"name": "Convergence Schema Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "/schema/convergence",
+							"path": [
+								"schema",
+								"convergence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Convergence Schema Version Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/schema/convergence/versions",
+							"path": [
+								"schema",
+								"convergence",
+								"versions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Convergence Schema Delta Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/schema/convergence/deltas",
+							"path": [
+								"schema",
+								"convergence",
+								"deltas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Schema Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "/schema/domains/{{domain}}",
+							"path": [
+								"schema",
+								"domains",
+								"{{domain}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Schema Version Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "SessionToken {{SessionToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "/schema/domains/{{domain}}/versions",
+							"path": [
+								"schema",
+								"domains",
+								"{{domain}}",
+								"versions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Domain Schema Delta Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "SessionToken {{SessionToken}}"
+							}
+						],
+						"url": {
+							"raw": "/schema/domains/{{domain}}/deltas",
+							"path": [
+								"schema",
+								"domains",
+								"{{domain}}",
+								"deltas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upgrade Convergence",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"preRelease\": true\n}"
+						},
+						"url": {
+							"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/convergence",
+							"host": [
+								"{{convergenceRestUrl}}"
+							],
+							"path": [
+								"admin",
+								"schema",
+								"upgrade",
+								"convergence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upgrade Domains",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"preRelease\": true\n}"
+						},
+						"url": {
+							"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domains",
+							"host": [
+								"{{convergenceRestUrl}}"
+							],
+							"path": [
+								"admin",
+								"schema",
+								"upgrade",
+								"domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upgrade Domain",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "MasterAdminApiKey {{masterAdminApiKey}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"preRelease\": true\n}"
+						},
+						"url": {
+							"raw": "{{convergenceRestUrl}}/admin/schema/upgrade/domain/test/example",
+							"host": [
+								"{{convergenceRestUrl}}"
+							],
+							"path": [
+								"admin",
+								"schema",
+								"upgrade",
+								"domain",
+								"test",
+								"example"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Util",
@@ -1295,144 +1290,11 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
-			"name": "Domains",
+			"name": "Domain API",
 			"item": [
-				{
-					"name": "Domain",
-					"item": [
-						{
-							"name": "GetDomains",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains",
-									"path": [
-										"domains"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetDomain",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"url": {
-									"raw": "/domains/convergence/default",
-									"path": [
-										"domains",
-										"convergence",
-										"default"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateDomain",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"namespace\":\"convergence\",\n    \"id\":\"postman\",\n    \"displayName\":\"Postman Domain\"\n}"
-								},
-								"url": {
-									"raw": "/domains",
-									"path": [
-										"domains"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteDomain",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "/domains/test/postman",
-									"path": [
-										"domains",
-										"test",
-										"postman"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateDomain",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "SessionToken {{SessionToken}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"displayName\": \"Postman Domain (updated)\"\n}"
-								},
-								"url": {
-									"raw": "/domains/test/postman",
-									"path": [
-										"domains",
-										"test",
-										"postman"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
 				{
 					"name": "Domain Config",
 					"item": [
@@ -1539,15 +1401,13 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Convergence User Token",
 					"item": [
 						{
-							"name": "GetDomainAdminToken",
+							"name": "Get Convergence User Auth Token",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -1567,9 +1427,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Members",
@@ -1702,9 +1560,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "JWT Auth Keys",
@@ -1842,7 +1698,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "30a528eb-822c-43de-a4da-2fcba32e4129",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1852,16 +1707,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "95f887ac-8bcd-47f0-955c-a5875dfca446",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Sessions",
@@ -1919,7 +1771,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "65a90e9f-6898-496f-b643-c683b9e26616",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1929,16 +1780,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "73947a12-40c5-43a4-a79b-8f30feb1b94b",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Collections",
@@ -2114,7 +1962,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1fe9eaab-a697-4945-8ab3-2ca15f1a212e",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2124,16 +1971,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d5f033e2-c9ec-46b5-9143-1ffb7001a31d",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Models",
@@ -2327,7 +2171,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "767a426b-951e-4c4a-b8b9-d1c6ede8b587",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2337,16 +2180,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8e307fd4-8c08-479c-9f80-55df081c1fa7",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Model Permissions",
@@ -2447,9 +2287,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Chat",
@@ -2617,7 +2455,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cd3f06a4-ff43-4708-b622-1a9ee0e2de8e",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2627,16 +2464,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "98bf0c3a-3e27-4769-8905-2ea2d6ee782d",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Users",
@@ -2840,7 +2674,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0b0f10e5-4c43-4d48-bb1c-2974aa29c42f",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2850,16 +2683,217 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "592889b5-c319-4c9c-b78d-a90f546d48f2",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
+					]
+				},
+				{
+					"name": "Activities",
+					"item": [
+						{
+							"name": "Get Activities",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/activities",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "5",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Activity",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"activityType\":\"test\",\n    \"activityId\":\"test-activity\",\n    \"worldfPermissions\": {\"join\": true, \"manage\": true, \"viewState\": true, \"setState\": true},\n    \"userPermissions\": {},\n    \"groupPermissions\": {}\n}"
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/activities",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Activity",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/activities/test/test-activity",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities",
+										"test",
+										"test-activity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Activity",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/activities/test/test-activity",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities",
+										"test",
+										"test-activity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Activity Permissions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"url": {
+									"raw": "/domains/{{domain}}/activities/test/test-activity/permissions",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities",
+										"test",
+										"test-activity",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Activity Permissions",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SessionToken {{SessionToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"worldPermissions\": [\"join\", \"view_state\", \"set_state\"],\n  \"userPermissions\": {\n    \"test\": [\"join\", \"view_state\", \"set_state\", \"manage\"]\n  },\n  \"groupPermissions\": {\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/domains/{{domain}}/activities/test/test-activity/permissions",
+									"path": [
+										"domains",
+										"{{domain}}",
+										"activities",
+										"test",
+										"test-activity",
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						}
 					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
 				},
 				{
 					"name": "User Groups",
@@ -3103,7 +3137,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "e0905dde-57e7-4e68-81e7-1ff0a5a7f4c1",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3113,16 +3146,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "029cc952-5632-4a43-8456-7b8d5ffdaae0",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Stats",
@@ -3153,7 +3183,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "4c0fdb9b-de97-45c1-8877-313fe091b7e4",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3163,19 +3192,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "63beff75-79ae-4f2e-b358-99d44a5a8420",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Server Status",
@@ -3220,7 +3245,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "814cbc39-25fe-42ca-8d40-fb088bc0b092",
 				"type": "text/javascript",
 				"exec": [
 					"pm.request.url = pm.environment.get('convergenceRestUrl') + pm.request.url"
@@ -3230,13 +3254,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "27f5b66f-e55e-49a6-beac-262a25746cd0",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
